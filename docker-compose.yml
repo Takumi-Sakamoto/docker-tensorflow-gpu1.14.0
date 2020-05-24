@@ -1,0 +1,24 @@
+version: '2.4'
+
+services:
+    build_base:
+        image: tensorflow:base
+        build:
+            context: ./base
+        runtime: nvidia
+    tensorflow:
+        image: tensorflow:cuda10.0
+        build:
+            context: ./runtime
+        runtime: nvidia
+        volumes:
+            - /tmp/.X11-unix:/tmp/.X11-unix
+            - ${HOME}/.Xauthority:/home/developer/.Xauthority
+            - ${HOME}/share:/home/developer/share
+        shm_size: 16g
+        network_mode: host
+        pid: host
+        ipc: host
+        environment:
+            - DISPLAY
+        command: /bin/bash
