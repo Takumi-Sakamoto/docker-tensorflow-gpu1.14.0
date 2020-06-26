@@ -47,8 +47,11 @@ ENV PATH $PYENV_ROOT/bin:$PATH
 RUN pyenv install 3.6.9 && pyenv global 3.6.9
 RUN $HOME/.pyenv/versions/3.6.9/bin/pip install gast==0.2.2 tensorflow-gpu==1.14.0 numpy keras==2.2.4 pandas opencv-python ipython notebook matplotlib tqdm lxml scikit-learn hmmlearn
 RUN $HOME/.pyenv/versions/3.6.9/bin/pip install livelossplot category_encoders
+RUN $HOME/.pyenv/versions/3.6.9/bin/pip install scikit-image
 
 # Japanese setting (https://qiita.com/cclef/items/dc8692d8b5a0c8c7812c)
 RUN echo 'export LC_CTYPE=C.UTF-8' >> $HOME/.bashrc
+
+RUN echo 'export TF_FORCE_GPU_ALLOW_GROWTH=true' >> $HOME/.bashrc
 
 ENTRYPOINT ["/bin/bash","-c"]
